@@ -16,6 +16,12 @@ public:
     MOCK_METHOD(bool, is_valid_location, (int, int), (override));
 };
 
+class MockReporter : public IReporter
+{
+public:
+    MOCK_METHOD(void, report, (int, int, Direction), (override));
+};
+
 // Tests the robot moving correctly in each direction
 TEST(RobotTest, MoveAllDirections)
 {
@@ -199,4 +205,98 @@ TEST(RobotTest, RightInvalidDirection)
     EXPECT_EQ(2, robot.x());
     EXPECT_EQ(2, robot.y());
     EXPECT_EQ(UnknownDirection, robot.facing());
+}
+
+// Tests that the robot can report its location with any direction
+TEST(RobotTest, ReportAllDirections)
+{
+    std::shared_ptr<MockSurface> surface(new MockSurface());
+
+    EXPECT_CALL(*surface, is_valid_location(_, _))
+        .Times(0);
+
+    MockReporter reporter;
+
+    // Using new robots for each test to avoid this test being dependent on place()
+    {
+        Robot robot(surface, 2, 2, North);
+        EXPECT_CALL(reporter, report(2, 2, North)).Times(1);
+        robot.report(reporter);
+    }
+
+    {
+        Robot robot(surface, 2, 2, East);
+        EXPECT_CALL(reporter, report(2, 2, East)).Times(1);
+        robot.report(reporter);
+    }
+
+    {
+        Robot robot(surface, 2, 2, South);
+        EXPECT_CALL(reporter, report(2, 2, South)).Times(1);
+        robot.report(reporter);
+    }
+
+    {
+        Robot robot(surface, 2, 2, West);
+        EXPECT_CALL(reporter, report(2, 2, West)).Times(1);
+        robot.report(reporter);
+    }
+}
+
+// Tests that the robot can report its location for all locations
+TEST(RobotTest, ReportLocations)
+{
+    std::shared_ptr<MockSurface> surface(new MockSurface());
+
+    EXPECT_CALL(*surface, is_valid_location(_, _))
+        .Times(0);
+
+    MockReporter reporter;
+
+    // Using new robots for each test to avoid this test being dependent on place()
+    {
+        Robot robot(surface, 0, 0, North);
+        EXPECT_CALL(reporter, report(0, 0, North)).Times(1);
+        robot.report(reporter);
+    }
+
+    {
+        Robot robot(surface, 4, 0, North);
+        EXPECT_CALL(reporter, report(4, 0, North)).Times(1);
+        robot.report(reporter);
+    }
+
+    {
+        Robot robot(surface, 0, 4, North);
+        EXPECT_CALL(reporter, report(0, 4, North)).Times(1);
+        robot.report(reporter);
+    }
+
+    {
+        Robot robot(surface, 4, 4, North);
+        EXPECT_CALL(reporter, report(4, 4, North)).Times(1);
+        robot.report(reporter);
+    }
+
+    {
+        Robot robot(surface, -1, -1, North);
+        EXPECT_CALL(reporter, report(-1, -1, North)).Times(1);
+        robot.report(reporter);
+    }
+
+    {
+        Robot robot(surface, 5, 5, North);
+        EXPECT_CALL(reporter, report(5, 5, North)).Times(1);
+        robot.report(reporter);
+    }
+}
+
+// Tests that the robot will not report if it's not placed on a surface
+TEST(RobotTest, ReportNotPlaced)
+{
+    MockReporter reporter;
+
+    Robot robot(nullptr, 2, 2, North);
+    EXPECT_CALL(reporter, report(_, _, _)).Times(0);
+    robot.report(reporter);
 }

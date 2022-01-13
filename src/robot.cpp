@@ -120,5 +120,9 @@ bool Robot::right()
 
 bool Robot::report(IReporter &reporter) const
 {
+    if (!is_placed())
+        return false;
+
+    reporter.report(m_x, m_y, m_facing);
     return true;
 }
