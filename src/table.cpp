@@ -20,5 +20,8 @@ Table::~Table()
 
 bool Table::is_valid_location(int x, int y) const
 {
-    return false;
+    return x >= 0 && y >= 0 &&
+        x < m_width && y < m_height;
+
+    return true;
 }
