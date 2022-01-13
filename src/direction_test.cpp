@@ -5,6 +5,7 @@
 
 using namespace ToyRobot;
 
+// Test that each direction is correctly converted to a string
 TEST(DirectionTest, AllDirections)
 {
     EXPECT_EQ("North", to_string(North));
@@ -13,6 +14,7 @@ TEST(DirectionTest, AllDirections)
     EXPECT_EQ("West", to_string(West));
 }
 
+// Test that invalid directions produce an <Unknown> string
 TEST(DirectionTest, UnknownDirections)
 {
     EXPECT_EQ("<Unknown>", to_string(UnknownDirection));

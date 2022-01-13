@@ -52,6 +52,9 @@ bool Robot::move()
     case West:
         x--;
         break;
+    default:
+        return false;
+        break;
     }
 
     if (!m_surface->is_valid_location(x, y))
