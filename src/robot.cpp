@@ -66,14 +66,17 @@ bool Robot::move()
     return true;
 }
 
-void Robot::left()
+bool Robot::left()
 {
+    return true;
 }
 
-void Robot::right()
+bool Robot::right()
 {
+    return true;
 }
 
-void Robot::report(IReporter &reporter) const
+bool Robot::report(IReporter &reporter) const
 {
+    return true;
 }

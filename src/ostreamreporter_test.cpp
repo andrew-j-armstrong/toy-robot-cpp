@@ -12,30 +12,30 @@ TEST(OStreamReporterTest, AllDirections)
     OStreamReporter reporter(ss);
 
     ss.str("");
-    reporter.report(2,2,North);
+    reporter.report(2, 2, North);
     EXPECT_EQ("2,2,North\n", ss.str());
 
     ss.str("");
-    reporter.report(2,2,East);
+    reporter.report(2, 2, East);
     EXPECT_EQ("2,2,East\n", ss.str());
 
     ss.str("");
-    reporter.report(2,2,South);
+    reporter.report(2, 2, South);
     EXPECT_EQ("2,2,South\n", ss.str());
 
     ss.str("");
-    reporter.report(2,2,West);
+    reporter.report(2, 2, West);
     EXPECT_EQ("2,2,West\n", ss.str());
 }
 
 // Tests that reporting works even for invalid locations
-TEST(OStreamReporterTest, UnknownDirection)
+TEST(OStreamReporterTest, InvalidDirection)
 {
    std::stringstream ss;
     OStreamReporter reporter(ss);
 
     ss.str("");
-    reporter.report(-1,-1,UnknownDirection);
+    reporter.report(-1, -1, UnknownDirection);
     EXPECT_EQ("-1,-1,<Unknown>\n", ss.str());
 }
 
@@ -46,19 +46,19 @@ TEST(OStreamReporterTest, LimitLocations)
     OStreamReporter reporter(ss);
 
     ss.str("");
-    reporter.report(0,0,South);
+    reporter.report(0, 0, South);
     EXPECT_EQ("0,0,South\n", ss.str());
 
     ss.str("");
-    reporter.report(0,4,West);
+    reporter.report(0, 4, West);
     EXPECT_EQ("0,4,West\n", ss.str());
 
     ss.str("");
-    reporter.report(4,4,North);
+    reporter.report(4, 4, North);
     EXPECT_EQ("4,4,North\n", ss.str());
 
     ss.str("");
-    reporter.report(4,0,East);
+    reporter.report(4, 0, East);
     EXPECT_EQ("4,0,East\n", ss.str());
 }
 
