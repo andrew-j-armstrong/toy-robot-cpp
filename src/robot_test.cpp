@@ -13,7 +13,7 @@ using namespace testing;
 class MockSurface : public ISurface
 {
 public:
-    MOCK_METHOD(bool, is_valid_location, (int, int), (override));
+    MOCK_METHOD(bool, is_valid_location, (int, int), (const override));
 };
 
 class MockReporter : public IReporter

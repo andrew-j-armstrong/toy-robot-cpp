@@ -7,10 +7,10 @@ INC = -Iinc
 TARGET = toy_robot
 TEST = toy_robot_test
 
-_OBJS = direction.o ostreamreporter.o robot.o
+_OBJS = direction.o ostreamreporter.o robot.o table.o
 OBJS = $(patsubst %,$(OBJDIR)/%,$(_OBJS))
 
-_TESTOBJS = direction_test.o ostreamreporter_test.o robot_test.o
+_TESTOBJS = direction_test.o ostreamreporter_test.o robot_test.o table_test.o
 TESTOBJS = $(patsubst %,$(OBJDIR)/%,$(_TESTOBJS))
 
 all: test build

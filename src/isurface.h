@@ -11,7 +11,7 @@ namespace ToyRobot
     public:
         virtual ~ISurface() {}
 
-        virtual bool is_valid_location(int x, int y) = 0;
+        virtual bool is_valid_location(int x, int y) const = 0;
 
     protected:
         ISurface() {};

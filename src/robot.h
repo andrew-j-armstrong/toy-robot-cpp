@@ -9,6 +9,7 @@
 
 namespace ToyRobot
 {
+    // Robot encapsulates the toy robot in our model, and can be manipulated through the actions defined in the problem.
     class Robot
     {
     public:
