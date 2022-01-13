@@ -1,4 +1,3 @@
 .vscode/*
-toy_robot_test
-toy_robot
+bin/*
 obj/*
