@@ -10,10 +10,14 @@ Robot::Robot()
 }
 
 Robot::Robot(std::shared_ptr<ISurface> surface, int x, int y, Direction facing)
-: m_surface(surface)
+: m_surface(std::move(surface))
 , m_x(x)
 , m_y(y)
 , m_facing(facing)
+{
+}
+
+Robot::~Robot()
 {
 }
 
@@ -22,7 +26,7 @@ bool Robot::place(std::shared_ptr<ISurface> surface, int x, int y, Direction fac
     if (!surface || !surface->is_valid_location(x, y))
         return false;
 
-    m_surface = surface;
+    m_surface = std::move(surface);
     m_x = x;
     m_y = y;
     m_facing = facing;

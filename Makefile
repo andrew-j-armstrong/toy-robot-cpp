@@ -4,13 +4,15 @@ GTESTLIBFLAGS = -lgtest -lgtest_main -lgmock
 OBJDIR = obj
 SRCDIR = src
 INC = -Iinc
-TARGET = toy_robot
-TEST = toy_robot_test
+TARGET = bin/toy_robot
+TEST = bin/toy_robot_test
 
-_OBJS = direction.o ostreamreporter.o robot.o table.o
+_OBJS = direction.o ostreamreporter.o robot.o table.o movecommand.o
 OBJS = $(patsubst %,$(OBJDIR)/%,$(_OBJS))
 
-_TESTOBJS = direction_test.o ostreamreporter_test.o robot_test.o table_test.o
+DEPS = $(OBJS:%.o=%.d)
+
+_TESTOBJS = direction_test.o ostreamreporter_test.o robot_test.o table_test.o movecommand_test.o
 TESTOBJS = $(patsubst %,$(OBJDIR)/%,$(_TESTOBJS))
 
 all: test build
@@ -27,13 +29,18 @@ test: $(TEST)
 	./$(TEST)
 
 $(TARGET): $(OBJS)
+	mkdir -p bin
 	${CC} ${CFLAGS} -o $(TARGET) $(OBJS)
 
 $(TEST): $(OBJS) $(TESTOBJS)
+	mkdir -p bin
 	${CC} ${CFLAGS} -o $(TEST) $(OBJS) $(TESTOBJS) $(GTESTLIBFLAGS)
 
+# Include all .d files
+-include $(DEPS)
+
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp 
-	$(CC) $(CFLAGS) -c $(INC) -o $@ $<
+	$(CC) $(CFLAGS) -MMD -c $(INC) -o $@ $<
 
 .PHONY: clean
 clean:

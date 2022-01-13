@@ -3,6 +3,7 @@
 
 #include <memory>
 
+#include "irobot.h"
 #include "direction.h"
 #include "isurface.h"
 #include "ireporter.h"
@@ -10,17 +11,18 @@
 namespace ToyRobot
 {
     // Robot encapsulates the toy robot in our model, and can be manipulated through the actions defined in the problem.
-    class Robot
+    class Robot : public IRobot
     {
     public:
         Robot();
         Robot(std::shared_ptr<ISurface> surface, int x, int y, Direction facing);
+        virtual ~Robot();
 
-        bool place(std::shared_ptr<ISurface> surface, int x, int y, Direction facing);
-        bool move();
-        bool left();
-        bool right();
-        bool report(IReporter &reporter) const;
+        bool place(std::shared_ptr<ISurface> surface, int x, int y, Direction facing) override;
+        bool move() override;
+        bool left() override;
+        bool right() override;
+        bool report(IReporter &reporter) const override;
 
         bool is_placed() const { return m_surface != nullptr; }
         int x() const { return m_x; }
