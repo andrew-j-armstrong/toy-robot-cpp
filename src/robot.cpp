@@ -32,7 +32,7 @@ bool Robot::place(std::shared_ptr<ISurface> surface, int x, int y, Direction fac
 
 bool Robot::move()
 {
-    if (!m_surface)
+    if (!is_placed())
         return false;
 
     int x = m_x;
@@ -68,12 +68,54 @@ bool Robot::move()
 
 bool Robot::left()
 {
-    return true;
+    if (!is_placed())
+        return false;
+
+    // Could potentially use m_facing = (m_facing + 3) % 4;
+    // However I think that's less readable, hence opted for the switch statement.
+    switch (m_facing)
+    {
+    case North:
+        m_facing = West;
+        return true;
+    case East:
+        m_facing = North;
+        return true;
+    case South:
+        m_facing = East;
+        return true;
+    case West:
+        m_facing = South;
+        return true;
+    default:
+        return false;
+    }
 }
 
 bool Robot::right()
 {
-    return true;
+    if (!is_placed())
+        return false;
+
+    // Could potentially use m_facing = (m_facing + 1) % 4;
+    // However I think that's less readable, hence opted for the switch statement.
+    switch (m_facing)
+    {
+    case North:
+        m_facing = East;
+        return true;
+    case East:
+        m_facing = South;
+        return true;
+    case South:
+        m_facing = West;
+        return true;
+    case West:
+        m_facing = North;
+        return true;
+    default:
+        return false;
+    }
 }
 
 bool Robot::report(IReporter &reporter) const
