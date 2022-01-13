@@ -13,11 +13,17 @@ namespace ToyRobot
     {
     public:
         Robot();
+        Robot(std::shared_ptr<ISurface> surface, int x, int y, Direction facing);
 
+        bool place(std::shared_ptr<ISurface> surface, int x, int y, Direction facing);
         bool move();
         void left();
         void right();
-        void report(IReporter &reporter);
+        void report(IReporter &reporter) const;
+
+        int x() const { return m_x; }
+        int y() const { return m_y; }
+        Direction facing() const { return m_facing; }
 
     protected:
         std::shared_ptr<ISurface> m_surface;

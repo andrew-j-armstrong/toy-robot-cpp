@@ -33,7 +33,7 @@ TEST(OStreamReporterTest, UnknownDirection)
     OStreamReporter reporter(ss);
 
     ss.str("");
-    reporter.report(-1,-1,Unknown);
+    reporter.report(-1,-1,UnknownDirection);
     EXPECT_EQ("-1,-1,<Unknown>\n", ss.str());
 }
 

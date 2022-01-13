@@ -1,16 +1,16 @@
 CC = g++
 CFLAGS = -Wall -g -std=c++17 -pthread
-GTESTLIBFLAGS = -lgtest -lgtest_main
+GTESTLIBFLAGS = -lgtest -lgtest_main -lgmock
 OBJDIR = obj
 SRCDIR = src
 INC = -Iinc
 TARGET = toy_robot
 TEST = toy_robot_test
 
-_OBJS = direction.o ostreamreporter.o
+_OBJS = direction.o ostreamreporter.o robot.o
 OBJS = $(patsubst %,$(OBJDIR)/%,$(_OBJS))
 
-_TESTOBJS = direction_test.o ostreamreporter_test.o
+_TESTOBJS = direction_test.o ostreamreporter_test.o robot_test.o
 TESTOBJS = $(patsubst %,$(OBJDIR)/%,$(_TESTOBJS))
 
 all: test build
@@ -40,11 +40,15 @@ clean:
 	rm -f $(OBJDIR)/*.o $(TARGET) $(TEST)
 
 .PHONY: setup
-setup: libgtest objdir
+setup: libgtest libgmock-dev objdir
 
 .PHONY: libgtest
 libgtest:
 	sudo apt-get install libgtest-dev
+
+.PHONY: libgmock-dev
+libgmock-dev:
+	sudo apt-get install libgmock-dev
 
 .PHONY: objdir
 objdir:
