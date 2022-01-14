@@ -10,11 +10,13 @@ TEST = bin/toy_robot_test
 
 SRCS := $(shell find $(SRCDIR) -type f \( -iname "*.cpp" ! -iname "*_test.cpp" \))
 OBJS = $(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.o,$(SRCS))
-
 DEPS = $(OBJS:%.o=%.d)
+-include $(DEPS)
 
 TESTSRCS := $(shell find $(SRCDIR) -type f -iname "*_test.cpp")
 TESTOBJS = $(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.o,$(TESTSRCS))
+TESTDEPS = $(TESTOBJS:%.o=%.d)
+-include $(TESTDEPS)
 
 all: test build
 
@@ -36,9 +38,6 @@ $(TARGET): $(OBJS)
 $(TEST): $(OBJS) $(TESTOBJS)
 	@mkdir -p $(@D)
 	${CC} ${CFLAGS} -o $(TEST) $(OBJS) $(TESTOBJS) $(GTESTLIBFLAGS)
-
-# Include all .d files
--include $(DEPS)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 	@mkdir -p $(@D)
