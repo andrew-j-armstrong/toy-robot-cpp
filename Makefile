@@ -10,14 +10,15 @@ TEST = bin/toy_robot_test
 SRCS := $(shell find $(SRCDIR) -type f \( -iname "*.cpp" ! -iname "*_test.cpp" ! -iname "main.cpp" \))
 OBJS = $(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.o,$(SRCS))
 DEPS = $(OBJS:%.o=%.d)
--include $(DEPS)
 
 TESTSRCS := $(shell find $(SRCDIR) -type f -iname "*_test.cpp")
 TESTOBJS = $(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.o,$(TESTSRCS))
 TESTDEPS = $(TESTOBJS:%.o=%.d)
--include $(TESTDEPS)
 
-all: test build
+all: build test
+
+-include $(DEPS)
+-include $(TESTDEPS)
 
 .PHONY: build
 build: $(TARGET)

@@ -7,17 +7,18 @@
 #include "model/table.h"
 #include "parser/textparser.h"
 #include "commands/commandfactory.h"
+#include "simulation.h"
 
 using namespace ToyRobot;
 
-std::unique_ptr<IStreamInput> generate_input(const std::string &filename, std::ifstream &inputFile)
+std::unique_ptr<IInput> generate_input(const std::string &filename, std::ifstream &inputFile)
 {
     if (filename.empty())
-        return std::unique_ptr<IStreamInput>(new IStreamInput(std::cin));
+        return std::unique_ptr<IInput>(new IStreamInput(std::cin));
     else
     {
         inputFile.open(filename);
-        return std::unique_ptr<IStreamInput>(new IStreamInput(inputFile));
+        return std::unique_ptr<IInput>(new IStreamInput(inputFile));
     }
 }
 
@@ -49,19 +50,13 @@ int main(int argc, char*argv[])
     }
 
     std::ifstream inputFile;
-    auto inputStream = generate_input(inputFilename, inputFile);
+    auto input = generate_input(inputFilename, inputFile);
 
-    std::shared_ptr<IReporter> reporter(new OStreamReporter(std::cout));
-    std::shared_ptr<ISurface> table(new Table(5, 5));
-    std::shared_ptr<IRobot> robot(new Robot());
-    std::shared_ptr<ICommandFactory> commandFactory(new CommandFactory(robot, reporter, table));
-    TextParser parser(commandFactory);
+    std::unique_ptr<IReporter> reporter(new OStreamReporter(std::cout));
+    std::unique_ptr<ISurface> table(new Table(5, 5));
+    std::unique_ptr<IRobot> robot(new Robot());
+    std::unique_ptr<ICommandFactory> commandFactory(new CommandFactory(move(robot), move(reporter), move(table)));
+    std::unique_ptr<ITextParser> parser(new TextParser(move(commandFactory)));
 
-    std::string line;
-    while(inputStream->read_line(line))
-    {
-        auto command = parser.parse_command(line);
-        if (command)
-            command->execute();
-    }
+    run_simulation(move(input), move(parser));
 }
