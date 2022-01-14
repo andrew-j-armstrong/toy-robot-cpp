@@ -24,5 +24,6 @@ TEST(CommandFactoryTest, NewCommands)
     EXPECT_TRUE(commandFactory.new_left_command());
     EXPECT_TRUE(commandFactory.new_right_command());
     EXPECT_TRUE(commandFactory.new_report_command());
+    EXPECT_TRUE(commandFactory.new_exit_command());
     EXPECT_TRUE(commandFactory.new_place_command(1, 2, North));
 }

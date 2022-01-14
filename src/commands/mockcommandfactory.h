@@ -15,6 +15,7 @@ namespace ToyRobot
         MOCK_METHOD(std::unique_ptr<ICommand>, new_left_command, (), (const override));
         MOCK_METHOD(std::unique_ptr<ICommand>, new_right_command, (), (const override));
         MOCK_METHOD(std::unique_ptr<ICommand>, new_report_command, (), (const override));
+        MOCK_METHOD(std::unique_ptr<ICommand>, new_exit_command, (), (const override));
         MOCK_METHOD(std::unique_ptr<ICommand>, new_place_command, (int, int, Direction), (const override));
     };
 }

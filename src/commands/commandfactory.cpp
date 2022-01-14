@@ -5,6 +5,7 @@
 #include "rightcommand.h"
 #include "reportcommand.h"
 #include "placecommand.h"
+#include "exitcommand.h"
 
 using namespace ToyRobot;
 
@@ -42,4 +43,9 @@ std::unique_ptr<ICommand> CommandFactory::new_report_command() const
 std::unique_ptr<ICommand> CommandFactory::new_place_command(int x, int y, Direction facing) const
 {
     return std::unique_ptr<ICommand>(new PlaceCommand(m_robot, m_surface, x, y, facing));
+}
+
+std::unique_ptr<ICommand> CommandFactory::new_exit_command() const
+{
+    return std::unique_ptr<ICommand>(new ExitCommand());
 }

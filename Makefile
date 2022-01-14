@@ -1,6 +1,7 @@
 CC = g++
-CFLAGS = -Wall -g -std=c++11 -pthread
-GTESTLIBFLAGS = -lgtest -lgtest_main -lgmock
+CFLAGS = -Wall -g -std=c++11
+LDFLAGS = -pthread -static
+GTESTLDFLAGS = -pthread -lgtest -lgtest_main -lgmock
 OBJDIR = obj
 SRCDIR = src
 BINDIR = bin
@@ -20,6 +21,14 @@ all: build test
 -include $(DEPS)
 -include $(TESTDEPS)
 
+.PHONY: docker-run
+docker-run: docker-build
+	docker run -it andrew-j-armstrong/toyrobot
+
+.PHONY: docker-build
+docker-build:
+	docker build -t andrew-j-armstrong/toyrobot .
+
 .PHONY: build
 build: $(TARGET)
 
@@ -33,11 +42,11 @@ test: $(TEST)
 
 $(TARGET): $(OBJS) $(OBJDIR)/main.o
 	@mkdir -p $(@D)
-	${CC} ${CFLAGS} -o $(TARGET) $(OBJS) $(OBJDIR)/main.o
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $(TARGET) $(OBJS) $(OBJDIR)/main.o
 
 $(TEST): $(OBJS) $(TESTOBJS)
 	@mkdir -p $(@D)
-	${CC} ${CFLAGS} -o $(TEST) $(OBJS) $(TESTOBJS) $(GTESTLIBFLAGS)
+	$(CC) $(CFLAGS) -o $(TEST) $(OBJS) $(TESTOBJS) $(GTESTLDFLAGS)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 	@mkdir -p $(@D)
@@ -47,14 +56,25 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 clean:
 	rm -rf $(OBJDIR) $(BINDIR)
 
-.PHONY: setup
-setup: libgtest-dev libgmock-dev
+.PHONY: ubuntu-setup
+ubuntu-setup: ubuntu-libgtest-dev ubuntu-libgmock-dev
 
-.PHONY: libgtest-dev
-libgtest-dev:
-	sudo apt-get install libgtest-dev
+.PHONY: ubuntu-libgtest-dev
+ubuntu-libgtest-dev:
+	apt install -y libgtest-dev
 
-.PHONY: libgmock-dev
-libgmock-dev:
-	sudo apt-get install libgmock-dev
+.PHONY: ubuntu-libgmock-dev
+ubuntu-libgmock-dev:
+	apt install -y libgmock-dev
+
+.PHONY: alpine-setup
+alpine-setup: alpine-gtest-dev alpine-gmock
+
+.PHONY: alpine-gtest-dev
+alpine-gtest-dev:
+	apk add gtest-dev
+
+.PHONY: alpine-gmock
+alpine-gmock:
+	apk add gmock
 

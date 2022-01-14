@@ -21,6 +21,7 @@ namespace ToyRobot
         std::unique_ptr<ICommand> new_right_command() const override;
         std::unique_ptr<ICommand> new_report_command() const override;
         std::unique_ptr<ICommand> new_place_command(int x, int y, Direction facing) const override;
+        std::unique_ptr<ICommand> new_exit_command() const override;
 
     protected:
         std::shared_ptr<IRobot> m_robot;
