@@ -3,7 +3,7 @@
 
 #include <ostream>
 
-#include "ireporter.h"
+#include "../model/ireporter.h"
 
 namespace ToyRobot
 {

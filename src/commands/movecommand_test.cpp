@@ -4,18 +4,10 @@
 #include <gmock/gmock.h>
 #include <sstream>
 
+#include "../model/mockrobot.h"
+
 using namespace ToyRobot;
 using namespace testing;
-
-class MockRobot : public IRobot
-{
-public:
-    MOCK_METHOD(bool, place, (std::shared_ptr<ISurface>, int, int, Direction), (override));
-    MOCK_METHOD(bool, move, (), (override));
-    MOCK_METHOD(bool, left, (), (override));
-    MOCK_METHOD(bool, right, (), (override));
-    MOCK_METHOD(bool, report, (IReporter &), (const override));
-};
 
 // Test that executing a move command will call move() on a robot and return successful if the move was successful
 TEST(MoveCommandTest, ExecuteSuccessfulMove)

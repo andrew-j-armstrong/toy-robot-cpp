@@ -4,15 +4,15 @@
 #include <memory>
 
 #include "icommand.h"
-#include "irobot.h"
+#include "../model/irobot.h"
 
 namespace ToyRobot
 {
-    class MoveCommand : public ICommand
+    class LeftCommand : public ICommand
     {
     public:
-        MoveCommand(std::shared_ptr<IRobot> robot);
-        virtual ~MoveCommand();
+        LeftCommand(std::shared_ptr<IRobot> robot);
+        virtual ~LeftCommand();
 
         bool execute() const override;
 

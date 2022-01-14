@@ -6,6 +6,7 @@
 #include <memory>
 
 #include "isurface.h"
+#include "mockreporter.h"
 
 using namespace ToyRobot;
 using namespace testing;
@@ -14,12 +15,6 @@ class MockSurface : public ISurface
 {
 public:
     MOCK_METHOD(bool, is_valid_location, (int, int), (const override));
-};
-
-class MockReporter : public IReporter
-{
-public:
-    MOCK_METHOD(void, report, (int, int, Direction), (override));
 };
 
 // Tests the robot moving correctly in each direction

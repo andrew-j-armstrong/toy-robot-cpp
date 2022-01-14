@@ -1,19 +1,20 @@
 CC = g++
-CFLAGS = -Wall -g -std=c++17 -pthread
+CFLAGS = -Wall -g -std=c++11 -pthread
 GTESTLIBFLAGS = -lgtest -lgtest_main -lgmock
 OBJDIR = obj
 SRCDIR = src
+BINDIR = bin
 INC = -Iinc
 TARGET = bin/toy_robot
 TEST = bin/toy_robot_test
 
-_OBJS = direction.o ostreamreporter.o robot.o table.o movecommand.o
-OBJS = $(patsubst %,$(OBJDIR)/%,$(_OBJS))
+SRCS := $(shell find $(SRCDIR) -type f \( -iname "*.cpp" ! -iname "*_test.cpp" \))
+OBJS = $(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.o,$(SRCS))
 
 DEPS = $(OBJS:%.o=%.d)
 
-_TESTOBJS = direction_test.o ostreamreporter_test.o robot_test.o table_test.o movecommand_test.o
-TESTOBJS = $(patsubst %,$(OBJDIR)/%,$(_TESTOBJS))
+TESTSRCS := $(shell find $(SRCDIR) -type f -iname "*_test.cpp")
+TESTOBJS = $(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.o,$(TESTSRCS))
 
 all: test build
 
@@ -29,22 +30,23 @@ test: $(TEST)
 	./$(TEST)
 
 $(TARGET): $(OBJS)
-	mkdir -p bin
+	@mkdir -p $(@D)
 	${CC} ${CFLAGS} -o $(TARGET) $(OBJS)
 
 $(TEST): $(OBJS) $(TESTOBJS)
-	mkdir -p bin
+	@mkdir -p $(@D)
 	${CC} ${CFLAGS} -o $(TEST) $(OBJS) $(TESTOBJS) $(GTESTLIBFLAGS)
 
 # Include all .d files
 -include $(DEPS)
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.cpp 
+$(OBJDIR)/%.o: $(SRCDIR)/%.cpp
+	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -MMD -c $(INC) -o $@ $<
 
 .PHONY: clean
 clean:
-	rm -f $(OBJDIR)/*.o $(TARGET) $(TEST)
+	rm -rf $(OBJDIR) $(BINDIR)
 
 .PHONY: setup
 setup: libgtest libgmock-dev objdir
