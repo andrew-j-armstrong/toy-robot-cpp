@@ -20,7 +20,7 @@ TEST(MoveCommandTest, ExecuteSuccessfulMove)
 
     MoveCommand moveCommand(robot);
 
-    EXPECT_EQ(true, moveCommand.execute());
+    EXPECT_TRUE(moveCommand.execute());
 }
 
 // Test that executing a move command will call move() on a robot and return a failure if the move failed
@@ -34,7 +34,7 @@ TEST(MoveCommandTest, ExecuteFailedMove)
 
     MoveCommand moveCommand(robot);
 
-    EXPECT_EQ(false, moveCommand.execute());
+    EXPECT_FALSE(moveCommand.execute());
 }
 
 // Verify that an exception is thrown if an invalid robot is provided to the command

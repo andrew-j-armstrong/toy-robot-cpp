@@ -20,7 +20,7 @@ TEST(LeftCommandTest, ExecuteSuccessfulLeft)
 
     LeftCommand leftCommand(robot);
 
-    EXPECT_EQ(true, leftCommand.execute());
+    EXPECT_TRUE(leftCommand.execute());
 }
 
 // Test that executing a left command will call left() on a robot and return a failure if the left failed
@@ -34,7 +34,7 @@ TEST(LeftCommandTest, ExecuteFailedLeft)
 
     LeftCommand leftCommand(robot);
 
-    EXPECT_EQ(false, leftCommand.execute());
+    EXPECT_FALSE(leftCommand.execute());
 }
 
 // Verify that an exception is thrown if an invalid robot is provided to the command

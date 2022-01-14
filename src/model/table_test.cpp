@@ -55,21 +55,21 @@ TEST(TableTest, CheckValidLocations)
     {
         Table table(5, 5);
 
-        EXPECT_EQ(true, table.is_valid_location(0, 0));
-        EXPECT_EQ(true, table.is_valid_location(2, 2));
-        EXPECT_EQ(true, table.is_valid_location(0, 4));
-        EXPECT_EQ(true, table.is_valid_location(4, 4));
-        EXPECT_EQ(true, table.is_valid_location(4, 0));
+        EXPECT_TRUE(table.is_valid_location(0, 0));
+        EXPECT_TRUE(table.is_valid_location(2, 2));
+        EXPECT_TRUE(table.is_valid_location(0, 4));
+        EXPECT_TRUE(table.is_valid_location(4, 4));
+        EXPECT_TRUE(table.is_valid_location(4, 0));
     }
 
     {
         Table table(8, 8);
 
-        EXPECT_EQ(true, table.is_valid_location(0, 0));
-        EXPECT_EQ(true, table.is_valid_location(4, 4));
-        EXPECT_EQ(true, table.is_valid_location(0, 7));
-        EXPECT_EQ(true, table.is_valid_location(7, 7));
-        EXPECT_EQ(true, table.is_valid_location(7, 0));
+        EXPECT_TRUE(table.is_valid_location(0, 0));
+        EXPECT_TRUE(table.is_valid_location(4, 4));
+        EXPECT_TRUE(table.is_valid_location(0, 7));
+        EXPECT_TRUE(table.is_valid_location(7, 7));
+        EXPECT_TRUE(table.is_valid_location(7, 0));
     }
 }
 
@@ -79,18 +79,18 @@ TEST(TableTest, CheckInvalidLocations)
     {
         Table table(5, 5);
 
-        EXPECT_EQ(false, table.is_valid_location(-1, 0));
-        EXPECT_EQ(false, table.is_valid_location(0, 5));
-        EXPECT_EQ(false, table.is_valid_location(5, 4));
-        EXPECT_EQ(false, table.is_valid_location(4, -1));
+        EXPECT_FALSE(table.is_valid_location(-1, 0));
+        EXPECT_FALSE(table.is_valid_location(0, 5));
+        EXPECT_FALSE(table.is_valid_location(5, 4));
+        EXPECT_FALSE(table.is_valid_location(4, -1));
     }
 
     {
         Table table(8, 8);
 
-        EXPECT_EQ(false, table.is_valid_location(-1, 0));
-        EXPECT_EQ(false, table.is_valid_location(0, 8));
-        EXPECT_EQ(false, table.is_valid_location(8, 4));
-        EXPECT_EQ(false, table.is_valid_location(4, -1));
+        EXPECT_FALSE(table.is_valid_location(-1, 0));
+        EXPECT_FALSE(table.is_valid_location(0, 8));
+        EXPECT_FALSE(table.is_valid_location(8, 4));
+        EXPECT_FALSE(table.is_valid_location(4, -1));
     }
 }

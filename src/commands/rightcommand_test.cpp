@@ -20,7 +20,7 @@ TEST(RightCommandTest, ExecuteSuccessfulRight)
 
     RightCommand rightCommand(robot);
 
-    EXPECT_EQ(true, rightCommand.execute());
+    EXPECT_TRUE(rightCommand.execute());
 }
 
 // Test that executing a right command will call right() on a robot and return a failure if the right failed
@@ -34,7 +34,7 @@ TEST(RightCommandTest, ExecuteFailedRight)
 
     RightCommand rightCommand(robot);
 
-    EXPECT_EQ(false, rightCommand.execute());
+    EXPECT_FALSE(rightCommand.execute());
 }
 
 // Verify that an exception is thrown if an invalid robot is provided to the command

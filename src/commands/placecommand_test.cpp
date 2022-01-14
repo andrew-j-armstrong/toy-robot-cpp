@@ -22,7 +22,7 @@ TEST(PlaceCommandTest, ExecuteSuccessfulPlace)
 
     PlaceCommand placeCommand(robot, surface, 2, 2, North);
 
-    EXPECT_EQ(true, placeCommand.execute());
+    EXPECT_TRUE(placeCommand.execute());
 }
 
 // Test that executing a place command will call place() on a robot and return a failure if the place action fails
@@ -37,7 +37,7 @@ TEST(PlaceCommandTest, ExecuteFailedPlace)
 
     PlaceCommand placeCommand(robot, surface, 0, 0, South);
 
-    EXPECT_EQ(false, placeCommand.execute());
+    EXPECT_FALSE(placeCommand.execute());
 }
 
 // Verify that an exception is thrown if an invalid robot or surface is provided to the command

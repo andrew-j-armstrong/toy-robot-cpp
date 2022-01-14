@@ -1,5 +1,5 @@
-#ifndef TOYROBOT_MOVECOMMAND_H_
-#define TOYROBOT_MOVECOMMAND_H_
+#ifndef TOYROBOT_LEFTCOMMAND_H_
+#define TOYROBOT_LEFTCOMMAND_H_
 
 #include <memory>
 

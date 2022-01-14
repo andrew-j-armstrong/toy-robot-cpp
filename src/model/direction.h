@@ -16,9 +16,9 @@ namespace ToyRobot
         MaxDirection = West,
     };
 
-    std::string to_string(Direction d);
-
-    bool is_valid_direction(Direction d);
+    std::string to_string(Direction direction);
+    Direction from_string(const std::string &input);
+    bool is_valid_direction(Direction direction);
 }
 
 #endif

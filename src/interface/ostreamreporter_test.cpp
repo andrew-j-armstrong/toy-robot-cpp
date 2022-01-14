@@ -31,7 +31,7 @@ TEST(OStreamReporterTest, AllDirections)
 // Tests that reporting works even for invalid locations
 TEST(OStreamReporterTest, InvalidDirection)
 {
-   std::stringstream ss;
+    std::stringstream ss;
     OStreamReporter reporter(ss);
 
     ss.str("");

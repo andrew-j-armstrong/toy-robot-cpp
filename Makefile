@@ -7,7 +7,7 @@ BINDIR = bin
 TARGET = bin/toy_robot
 TEST = bin/toy_robot_test
 
-SRCS := $(shell find $(SRCDIR) -type f \( -iname "*.cpp" ! -iname "*_test.cpp" \))
+SRCS := $(shell find $(SRCDIR) -type f \( -iname "*.cpp" ! -iname "*_test.cpp" ! -iname "main.cpp" \))
 OBJS = $(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.o,$(SRCS))
 DEPS = $(OBJS:%.o=%.d)
 -include $(DEPS)
@@ -30,9 +30,9 @@ run: $(TARGET)
 test: $(TEST)
 	./$(TEST)
 
-$(TARGET): $(OBJS)
+$(TARGET): $(OBJS) $(OBJDIR)/main.o
 	@mkdir -p $(@D)
-	${CC} ${CFLAGS} -o $(TARGET) $(OBJS)
+	${CC} ${CFLAGS} -o $(TARGET) $(OBJS) $(OBJDIR)/main.o
 
 $(TEST): $(OBJS) $(TESTOBJS)
 	@mkdir -p $(@D)

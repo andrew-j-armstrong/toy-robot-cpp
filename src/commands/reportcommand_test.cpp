@@ -22,7 +22,7 @@ TEST(ReportCommandTest, ExecuteSuccessfulReport)
 
     ReportCommand reportCommand(robot, reporter);
 
-    EXPECT_EQ(true, reportCommand.execute());
+    EXPECT_TRUE(reportCommand.execute());
 }
 
 // Test that executing a report  command will call report() on a robot and return a failure if the report failed
@@ -37,7 +37,7 @@ TEST(ReportCommandTest, ExecuteFailedReport)
 
     ReportCommand reportCommand(robot, reporter);
 
-    EXPECT_EQ(false, reportCommand.execute());
+    EXPECT_FALSE(reportCommand.execute());
 }
 
 // Verify that an exception is thrown if an invalid robot or reporter is provided to the command
