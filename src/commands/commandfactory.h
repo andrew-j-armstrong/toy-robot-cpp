@@ -9,6 +9,7 @@
 
 namespace ToyRobot
 {
+    // CommandFactory for creating new commands via parser.
     class CommandFactory : public ICommandFactory
     {
     public:

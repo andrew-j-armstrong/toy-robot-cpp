@@ -14,7 +14,7 @@ namespace ToyRobot
     public:
         virtual ~ITextParser() {}
 
-        virtual std::unique_ptr<ICommand> parse_command(const std::string &text, const ICommandFactory &commandFactory) const = 0;
+        virtual std::unique_ptr<ICommand> parse_command(const std::string &text) const = 0;
 
     protected:
         ITextParser() {}

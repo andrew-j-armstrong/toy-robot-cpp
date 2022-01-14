@@ -13,8 +13,9 @@ using namespace ToyRobot;
 // Note that if this changes then the match indexes might also need to be updated
 #define COMMAND_REGEX "^((move)|(left)|(right)|(report)|(place +(-?\\d+) *, *(-?\\d+) *, *((north)|(east)|(south)|(west))))$"
 
-TextParser::TextParser()
-: m_regex(COMMAND_REGEX)
+TextParser::TextParser(std::shared_ptr<const ICommandFactory> commandFactory)
+: m_commandFactory(move(commandFactory))
+, m_regex(COMMAND_REGEX)
 {
 }
 
@@ -22,7 +23,7 @@ TextParser::~TextParser()
 {
 }
 
-std::unique_ptr<ICommand> TextParser::parse_command(const std::string &text, const ICommandFactory &commandFactory) const
+std::unique_ptr<ICommand> TextParser::parse_command(const std::string &text) const
 {
     // Simplifies and optimised regular expression
     std::string lowerText = to_lowercase(trim(text));
@@ -31,19 +32,19 @@ std::unique_ptr<ICommand> TextParser::parse_command(const std::string &text, con
     {
         if (match[2].matched)
         {
-            return move(commandFactory.new_move_command());
+            return move(m_commandFactory->new_move_command());
         }
         else if (match[3].matched)
         {
-            return move(commandFactory.new_left_command());
+            return move(m_commandFactory->new_left_command());
         }
         else if (match[4].matched)
         {
-            return move(commandFactory.new_right_command());
+            return move(m_commandFactory->new_right_command());
         }
         else if (match[5].matched)
         {
-            return move(commandFactory.new_report_command());
+            return move(m_commandFactory->new_report_command());
         }
         else if (match[6].matched)
         {
@@ -54,7 +55,7 @@ std::unique_ptr<ICommand> TextParser::parse_command(const std::string &text, con
             if (facing == UnknownDirection)
                 return nullptr; // If the direction parsing failed, ignore the command. Note that this should be impossible due to the regular expression.
 
-            return move(commandFactory.new_place_command(x, y, facing));
+            return move(m_commandFactory->new_place_command(x, y, facing));
         }
     }
 

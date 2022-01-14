@@ -12,158 +12,158 @@ using namespace testing;
 // Test parsing move command
 TEST(TextParserTest, ValidMoveCommand)
 {
-    TextParser parser;
-    MockCommandFactory commandFactory;
+    std::shared_ptr<MockCommandFactory> commandFactory(new MockCommandFactory());
+    TextParser parser(commandFactory);
     
-    EXPECT_CALL(commandFactory, new_left_command()).Times(0);
-    EXPECT_CALL(commandFactory, new_right_command()).Times(0);
-    EXPECT_CALL(commandFactory, new_report_command()).Times(0);
-    EXPECT_CALL(commandFactory, new_place_command(_, _, _)).Times(0);
+    EXPECT_CALL(*commandFactory, new_left_command()).Times(0);
+    EXPECT_CALL(*commandFactory, new_right_command()).Times(0);
+    EXPECT_CALL(*commandFactory, new_report_command()).Times(0);
+    EXPECT_CALL(*commandFactory, new_place_command(_, _, _)).Times(0);
 
-    EXPECT_CALL(commandFactory, new_move_command())
+    EXPECT_CALL(*commandFactory, new_move_command())
         .Times(4)
         .WillOnce(Return(ByMove(move(std::unique_ptr<ICommand>(new MockCommand())))))
         .WillOnce(Return(ByMove(move(std::unique_ptr<ICommand>(new MockCommand())))))
         .WillOnce(Return(ByMove(move(std::unique_ptr<ICommand>(new MockCommand())))))
         .WillOnce(Return(ByMove(move(std::unique_ptr<ICommand>(new MockCommand())))));
 
-    EXPECT_TRUE(parser.parse_command("move", commandFactory));
-    EXPECT_TRUE(parser.parse_command(" Move", commandFactory));
-    EXPECT_TRUE(parser.parse_command("MOVE ", commandFactory));
-    EXPECT_TRUE(parser.parse_command("\t MOve ", commandFactory));
+    EXPECT_TRUE(parser.parse_command("move"));
+    EXPECT_TRUE(parser.parse_command(" Move"));
+    EXPECT_TRUE(parser.parse_command("MOVE "));
+    EXPECT_TRUE(parser.parse_command("\t MOve "));
 }
 
 // Test parsing left command
 TEST(TextParserTest, ValidLeftCommand)
 {
-    TextParser parser;
-    MockCommandFactory commandFactory;
+    std::shared_ptr<MockCommandFactory> commandFactory(new MockCommandFactory());
+    TextParser parser(commandFactory);
     
-    EXPECT_CALL(commandFactory, new_move_command()).Times(0);
-    EXPECT_CALL(commandFactory, new_right_command()).Times(0);
-    EXPECT_CALL(commandFactory, new_report_command()).Times(0);
-    EXPECT_CALL(commandFactory, new_place_command(_, _, _)).Times(0);
+    EXPECT_CALL(*commandFactory, new_move_command()).Times(0);
+    EXPECT_CALL(*commandFactory, new_right_command()).Times(0);
+    EXPECT_CALL(*commandFactory, new_report_command()).Times(0);
+    EXPECT_CALL(*commandFactory, new_place_command(_, _, _)).Times(0);
 
-    EXPECT_CALL(commandFactory, new_left_command())
+    EXPECT_CALL(*commandFactory, new_left_command())
         .Times(4)
         .WillOnce(Return(ByMove(move(std::unique_ptr<ICommand>(new MockCommand())))))
         .WillOnce(Return(ByMove(move(std::unique_ptr<ICommand>(new MockCommand())))))
         .WillOnce(Return(ByMove(move(std::unique_ptr<ICommand>(new MockCommand())))))
         .WillOnce(Return(ByMove(move(std::unique_ptr<ICommand>(new MockCommand())))));
 
-    EXPECT_TRUE(parser.parse_command("left", commandFactory));
-    EXPECT_TRUE(parser.parse_command(" Left", commandFactory));
-    EXPECT_TRUE(parser.parse_command("LEFT ", commandFactory));
-    EXPECT_TRUE(parser.parse_command("\t LEft ", commandFactory));
+    EXPECT_TRUE(parser.parse_command("left"));
+    EXPECT_TRUE(parser.parse_command(" Left"));
+    EXPECT_TRUE(parser.parse_command("LEFT "));
+    EXPECT_TRUE(parser.parse_command("\t LEft "));
 }
 
 // Test parsing right command
 TEST(TextParserTest, ValidRightCommand)
 {
-    TextParser parser;
-    MockCommandFactory commandFactory;
+    std::shared_ptr<MockCommandFactory> commandFactory(new MockCommandFactory());
+    TextParser parser(commandFactory);
     
-    EXPECT_CALL(commandFactory, new_move_command()).Times(0);
-    EXPECT_CALL(commandFactory, new_left_command()).Times(0);
-    EXPECT_CALL(commandFactory, new_report_command()).Times(0);
-    EXPECT_CALL(commandFactory, new_place_command(_, _, _)).Times(0);
+    EXPECT_CALL(*commandFactory, new_move_command()).Times(0);
+    EXPECT_CALL(*commandFactory, new_left_command()).Times(0);
+    EXPECT_CALL(*commandFactory, new_report_command()).Times(0);
+    EXPECT_CALL(*commandFactory, new_place_command(_, _, _)).Times(0);
 
-    EXPECT_CALL(commandFactory, new_right_command())
+    EXPECT_CALL(*commandFactory, new_right_command())
         .Times(4)
         .WillOnce(Return(ByMove(move(std::unique_ptr<ICommand>(new MockCommand())))))
         .WillOnce(Return(ByMove(move(std::unique_ptr<ICommand>(new MockCommand())))))
         .WillOnce(Return(ByMove(move(std::unique_ptr<ICommand>(new MockCommand())))))
         .WillOnce(Return(ByMove(move(std::unique_ptr<ICommand>(new MockCommand())))));
 
-    EXPECT_TRUE(parser.parse_command("right", commandFactory));
-    EXPECT_TRUE(parser.parse_command(" Right", commandFactory));
-    EXPECT_TRUE(parser.parse_command("RIGHT ", commandFactory));
-    EXPECT_TRUE(parser.parse_command("\t RIght ", commandFactory));
+    EXPECT_TRUE(parser.parse_command("right"));
+    EXPECT_TRUE(parser.parse_command(" Right"));
+    EXPECT_TRUE(parser.parse_command("RIGHT "));
+    EXPECT_TRUE(parser.parse_command("\t RIght "));
 }
 
 // Test parsing report command
 TEST(TextParserTest, ValidReportCommand)
 {
-    TextParser parser;
-    MockCommandFactory commandFactory;
+    std::shared_ptr<MockCommandFactory> commandFactory(new MockCommandFactory());
+    TextParser parser(commandFactory);
     
-    EXPECT_CALL(commandFactory, new_move_command()).Times(0);
-    EXPECT_CALL(commandFactory, new_left_command()).Times(0);
-    EXPECT_CALL(commandFactory, new_right_command()).Times(0);
-    EXPECT_CALL(commandFactory, new_place_command(_, _, _)).Times(0);
+    EXPECT_CALL(*commandFactory, new_move_command()).Times(0);
+    EXPECT_CALL(*commandFactory, new_left_command()).Times(0);
+    EXPECT_CALL(*commandFactory, new_right_command()).Times(0);
+    EXPECT_CALL(*commandFactory, new_place_command(_, _, _)).Times(0);
 
-    EXPECT_CALL(commandFactory, new_report_command())
+    EXPECT_CALL(*commandFactory, new_report_command())
         .Times(4)
         .WillOnce(Return(ByMove(move(std::unique_ptr<ICommand>(new MockCommand())))))
         .WillOnce(Return(ByMove(move(std::unique_ptr<ICommand>(new MockCommand())))))
         .WillOnce(Return(ByMove(move(std::unique_ptr<ICommand>(new MockCommand())))))
         .WillOnce(Return(ByMove(move(std::unique_ptr<ICommand>(new MockCommand())))));
 
-    EXPECT_TRUE(parser.parse_command("report", commandFactory));
-    EXPECT_TRUE(parser.parse_command(" Report", commandFactory));
-    EXPECT_TRUE(parser.parse_command("REPORT ", commandFactory));
-    EXPECT_TRUE(parser.parse_command("\t REport ", commandFactory));
+    EXPECT_TRUE(parser.parse_command("report"));
+    EXPECT_TRUE(parser.parse_command(" Report"));
+    EXPECT_TRUE(parser.parse_command("REPORT "));
+    EXPECT_TRUE(parser.parse_command("\t REport "));
 }
 
 // Test parsing place command
 TEST(TextParserTest, ValidPlaceCommand)
 {
-    TextParser parser;
-    MockCommandFactory commandFactory;
+    std::shared_ptr<MockCommandFactory> commandFactory(new MockCommandFactory());
+    TextParser parser(commandFactory);
     
-    EXPECT_CALL(commandFactory, new_move_command()).Times(0);
-    EXPECT_CALL(commandFactory, new_left_command()).Times(0);
-    EXPECT_CALL(commandFactory, new_right_command()).Times(0);
-    EXPECT_CALL(commandFactory, new_report_command()).Times(0);
+    EXPECT_CALL(*commandFactory, new_move_command()).Times(0);
+    EXPECT_CALL(*commandFactory, new_left_command()).Times(0);
+    EXPECT_CALL(*commandFactory, new_right_command()).Times(0);
+    EXPECT_CALL(*commandFactory, new_report_command()).Times(0);
 
-    EXPECT_CALL(commandFactory, new_place_command(1, 2, North)).Times(1).WillOnce(Return(ByMove(move(std::unique_ptr<ICommand>(new MockCommand())))));
-    EXPECT_CALL(commandFactory, new_place_command(0, 0, South)).Times(1).WillOnce(Return(ByMove(move(std::unique_ptr<ICommand>(new MockCommand())))));
-    EXPECT_CALL(commandFactory, new_place_command(-1, -2, West)).Times(1).WillOnce(Return(ByMove(move(std::unique_ptr<ICommand>(new MockCommand())))));
-    EXPECT_CALL(commandFactory, new_place_command(15, 15, East)).Times(1).WillOnce(Return(ByMove(move(std::unique_ptr<ICommand>(new MockCommand())))));
+    EXPECT_CALL(*commandFactory, new_place_command(1, 2, North)).Times(1).WillOnce(Return(ByMove(move(std::unique_ptr<ICommand>(new MockCommand())))));
+    EXPECT_CALL(*commandFactory, new_place_command(0, 0, South)).Times(1).WillOnce(Return(ByMove(move(std::unique_ptr<ICommand>(new MockCommand())))));
+    EXPECT_CALL(*commandFactory, new_place_command(-1, -2, West)).Times(1).WillOnce(Return(ByMove(move(std::unique_ptr<ICommand>(new MockCommand())))));
+    EXPECT_CALL(*commandFactory, new_place_command(15, 15, East)).Times(1).WillOnce(Return(ByMove(move(std::unique_ptr<ICommand>(new MockCommand())))));
 
-    EXPECT_TRUE(parser.parse_command("place 1,2,north", commandFactory));
-    EXPECT_TRUE(parser.parse_command(" Place 0, 0, South", commandFactory));
-    EXPECT_TRUE(parser.parse_command("PLACE -1 , -2 , WEST", commandFactory));
-    EXPECT_TRUE(parser.parse_command("\t pLAce 15,15, eASt \n", commandFactory));
+    EXPECT_TRUE(parser.parse_command("place 1,2,north"));
+    EXPECT_TRUE(parser.parse_command(" Place 0, 0, South"));
+    EXPECT_TRUE(parser.parse_command("PLACE -1 , -2 , WEST"));
+    EXPECT_TRUE(parser.parse_command("\t pLAce 15,15, eASt \n"));
 }
 
 // Test parsing place commands with invalid parameters
 TEST(TextParserTest, InvalidPlaceCommand)
 {
-    TextParser parser;
-    MockCommandFactory commandFactory;
+    std::shared_ptr<MockCommandFactory> commandFactory(new MockCommandFactory());
+    TextParser parser(commandFactory);
     
-    EXPECT_CALL(commandFactory, new_move_command()).Times(0);
-    EXPECT_CALL(commandFactory, new_left_command()).Times(0);
-    EXPECT_CALL(commandFactory, new_right_command()).Times(0);
-    EXPECT_CALL(commandFactory, new_report_command()).Times(0);
-    EXPECT_CALL(commandFactory, new_place_command(_, _, _)).Times(0);
+    EXPECT_CALL(*commandFactory, new_move_command()).Times(0);
+    EXPECT_CALL(*commandFactory, new_left_command()).Times(0);
+    EXPECT_CALL(*commandFactory, new_right_command()).Times(0);
+    EXPECT_CALL(*commandFactory, new_report_command()).Times(0);
+    EXPECT_CALL(*commandFactory, new_place_command(_, _, _)).Times(0);
 
-    EXPECT_FALSE(parser.parse_command("place 1 2 north", commandFactory));
-    EXPECT_FALSE(parser.parse_command("place 1,2", commandFactory));
-    EXPECT_FALSE(parser.parse_command("place 1,2,nort", commandFactory));
-    EXPECT_FALSE(parser.parse_command("place ,,", commandFactory));
-    EXPECT_FALSE(parser.parse_command("place 0,,north", commandFactory));
-    EXPECT_FALSE(parser.parse_command("place ,0,north", commandFactory));
-    EXPECT_FALSE(parser.parse_command("place 1,2,,north", commandFactory));
+    EXPECT_FALSE(parser.parse_command("place 1 2 north"));
+    EXPECT_FALSE(parser.parse_command("place 1,2"));
+    EXPECT_FALSE(parser.parse_command("place 1,2,nort"));
+    EXPECT_FALSE(parser.parse_command("place ,,"));
+    EXPECT_FALSE(parser.parse_command("place 0,,north"));
+    EXPECT_FALSE(parser.parse_command("place ,0,north"));
+    EXPECT_FALSE(parser.parse_command("place 1,2,,north"));
 }
 
 // Test invalid commands similar to valid commands
 TEST(TextParserTest, InvalidCommand)
 {
-    TextParser parser;
-    MockCommandFactory commandFactory;
+    std::shared_ptr<MockCommandFactory> commandFactory(new MockCommandFactory());
+    TextParser parser(commandFactory);
     
-    EXPECT_CALL(commandFactory, new_move_command()).Times(0);
-    EXPECT_CALL(commandFactory, new_left_command()).Times(0);
-    EXPECT_CALL(commandFactory, new_right_command()).Times(0);
-    EXPECT_CALL(commandFactory, new_report_command()).Times(0);
-    EXPECT_CALL(commandFactory, new_place_command(_, _, _)).Times(0);
+    EXPECT_CALL(*commandFactory, new_move_command()).Times(0);
+    EXPECT_CALL(*commandFactory, new_left_command()).Times(0);
+    EXPECT_CALL(*commandFactory, new_right_command()).Times(0);
+    EXPECT_CALL(*commandFactory, new_report_command()).Times(0);
+    EXPECT_CALL(*commandFactory, new_place_command(_, _, _)).Times(0);
 
-    EXPECT_FALSE(parser.parse_command("blah", commandFactory));
-    EXPECT_FALSE(parser.parse_command("movey", commandFactory));
-    EXPECT_FALSE(parser.parse_command("1left", commandFactory));
-    EXPECT_FALSE(parser.parse_command("right right", commandFactory));
-    EXPECT_FALSE(parser.parse_command("Report Robot", commandFactory));
-    EXPECT_FALSE(parser.parse_command("move 1,1,North", commandFactory));
+    EXPECT_FALSE(parser.parse_command("blah"));
+    EXPECT_FALSE(parser.parse_command("movey"));
+    EXPECT_FALSE(parser.parse_command("1left"));
+    EXPECT_FALSE(parser.parse_command("right right"));
+    EXPECT_FALSE(parser.parse_command("Report Robot"));
+    EXPECT_FALSE(parser.parse_command("move 1,1,North"));
 }

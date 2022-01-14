@@ -9,13 +9,13 @@ std::string ToyRobot::to_string(Direction direction)
     switch(direction)
     {
     case North:
-        return "North";
+        return "NORTH";
     case West:
-        return "West";
+        return "WEST";
     case South:
-        return "South";
+        return "SOUTH";
     case East:
-        return "East";
+        return "EAST";
     default:
         return "<Unknown>";
     }
