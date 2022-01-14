@@ -23,7 +23,7 @@ Robot::~Robot()
 
 bool Robot::place(std::shared_ptr<ISurface> surface, int x, int y, Direction facing)
 {
-    if (!surface || !surface->is_valid_location(x, y))
+    if (!surface || !surface->is_valid_location(x, y) || !is_valid_direction(facing))
         return false;
 
     m_surface = std::move(surface);

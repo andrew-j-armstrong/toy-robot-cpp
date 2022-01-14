@@ -18,3 +18,9 @@ std::string ToyRobot::to_string(Direction d)
         return "<Unknown>";
     }
 }
+
+bool ToyRobot::is_valid_direction(Direction d)
+{
+    // Could also use a range check, however that would fail if the 
+    return d >= MinDirection && d <= MaxDirection;
+}

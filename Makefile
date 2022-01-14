@@ -4,7 +4,6 @@ GTESTLIBFLAGS = -lgtest -lgtest_main -lgmock
 OBJDIR = obj
 SRCDIR = src
 BINDIR = bin
-INC = -Iinc
 TARGET = bin/toy_robot
 TEST = bin/toy_robot_test
 
@@ -41,7 +40,7 @@ $(TEST): $(OBJS) $(TESTOBJS)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 	@mkdir -p $(@D)
-	$(CC) $(CFLAGS) -MMD -c $(INC) -o $@ $<
+	$(CC) $(CFLAGS) -MMD -c -o $@ $<
 
 .PHONY: clean
 clean:

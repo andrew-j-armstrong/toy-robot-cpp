@@ -12,10 +12,13 @@ namespace ToyRobot
         East,
         South,
         West,
+        MinDirection = North,
         MaxDirection = West,
     };
 
     std::string to_string(Direction d);
+
+    bool is_valid_direction(Direction d);
 }
 
 #endif

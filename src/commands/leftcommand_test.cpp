@@ -36,3 +36,20 @@ TEST(LeftCommandTest, ExecuteFailedLeft)
 
     EXPECT_EQ(false, leftCommand.execute());
 }
+
+// Verify that an exception is thrown if an invalid robot is provided to the command
+TEST(LeftCommandTest, InvalidConstruction)
+{
+    EXPECT_THROW({
+        try
+        {
+            LeftCommand leftCommand(nullptr);
+        }
+        catch(const std::invalid_argument &e)
+        {
+            EXPECT_EQ(std::string("robot"), e.what());
+            throw;
+        }
+
+    }, std::invalid_argument);
+}

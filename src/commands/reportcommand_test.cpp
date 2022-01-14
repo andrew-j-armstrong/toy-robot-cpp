@@ -39,3 +39,38 @@ TEST(ReportCommandTest, ExecuteFailedReport)
 
     EXPECT_EQ(false, reportCommand.execute());
 }
+
+// Verify that an exception is thrown if an invalid robot or reporter is provided to the command
+TEST(ReportCommandTest, InvalidConstruction)
+{
+    std::shared_ptr<MockRobot> robot(new MockRobot());
+    std::shared_ptr<MockReporter> reporter(new MockReporter());
+
+    EXPECT_THROW({
+        try
+        {
+            ReportCommand reportCommand(nullptr, reporter);
+        }
+        catch(const std::invalid_argument &e)
+        {
+            EXPECT_EQ(std::string("robot"), e.what());
+            throw;
+        }
+
+    }, std::invalid_argument);
+
+    EXPECT_THROW({
+        try
+        {
+            ReportCommand reportCommand(robot, nullptr);
+        }
+        catch(const std::invalid_argument &e)
+        {
+            EXPECT_EQ(std::string("reporter"), e.what());
+            throw;
+        }
+
+    }, std::invalid_argument);
+
+    EXPECT_THROW({ ReportCommand reportCommand(nullptr, nullptr); }, std::invalid_argument);
+}

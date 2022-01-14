@@ -7,15 +7,10 @@
 
 #include "isurface.h"
 #include "mockreporter.h"
+#include "mocksurface.h"
 
 using namespace ToyRobot;
 using namespace testing;
-
-class MockSurface : public ISurface
-{
-public:
-    MOCK_METHOD(bool, is_valid_location, (int, int), (const override));
-};
 
 // Tests the robot moving correctly in each direction
 TEST(RobotTest, MoveAllDirections)
@@ -26,7 +21,7 @@ TEST(RobotTest, MoveAllDirections)
         .Times(4)
         .WillRepeatedly(Return(true));
 
-    // Using new robots for each test to avoid this test being dependent on place()
+    // Using new robots for each test to avoid this test being dependent on place() or left()/right()
     {
         Robot robot(surface, 2, 2, North);
         EXPECT_EQ(true, robot.move());
