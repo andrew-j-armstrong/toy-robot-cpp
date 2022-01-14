@@ -48,10 +48,10 @@ clean:
 	rm -rf $(OBJDIR) $(BINDIR)
 
 .PHONY: setup
-setup: libgtest libgmock-dev
+setup: libgtest-dev libgmock-dev
 
-.PHONY: libgtest
-libgtest:
+.PHONY: libgtest-dev
+libgtest-dev:
 	sudo apt-get install libgtest-dev
 
 .PHONY: libgmock-dev
