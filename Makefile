@@ -49,7 +49,7 @@ clean:
 	rm -rf $(OBJDIR) $(BINDIR)
 
 .PHONY: setup
-setup: libgtest libgmock-dev objdir
+setup: libgtest libgmock-dev
 
 .PHONY: libgtest
 libgtest:
@@ -59,6 +59,3 @@ libgtest:
 libgmock-dev:
 	sudo apt-get install libgmock-dev
 
-.PHONY: objdir
-objdir:
-	mkdir -p obj
