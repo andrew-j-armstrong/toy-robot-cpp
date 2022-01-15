@@ -36,7 +36,7 @@ pid_t popen2(const char *command, int *inputFd, int *outputFd)
         close(outputPipe[READ]);
         dup2(outputPipe[WRITE], WRITE);
 
-        execl(command, command, NULL);
+        execl("/bin/sh", "sh", "-c", command, NULL);
 
         // execl failed
         perror("execl");
@@ -128,4 +128,10 @@ TEST(ToyRobotTest, ProblemExamples)
     EXPECT_EQ("0,1,NORTH\n", execProcess("bin/toy_robot", "PLACE 0,0,NORTH\nMOVE\nREPORT\nEXIT\n"));
     EXPECT_EQ("0,0,WEST\n", execProcess("bin/toy_robot", "PLACE 0,0,NORTH\nLEFT\nREPORT\nEXIT\n"));
     EXPECT_EQ("3,3,NORTH\n", execProcess("bin/toy_robot", "PLACE 1,2,EAST\nMOVE\nMOVE\nLEFT\nMOVE\nREPORT\nEXIT\n"));
+}
+
+// Tests the examples provided in the problem specifications
+TEST(ToyRobotTest, FileInput)
+{
+    EXPECT_EQ("0,1,NORTH\n0,0,WEST\n3,3,NORTH\n", execProcess("bin/toy_robot integration_tests/examples.txt", ""));
 }
