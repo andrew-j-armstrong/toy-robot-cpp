@@ -9,6 +9,7 @@
 
 namespace ToyRobot
 {
+    // ITextParser provides an interface for parsing text and generating commands
     class ITextParser
     {
     public:

@@ -11,6 +11,7 @@ namespace ToyRobot
     class MoveCommand : public ICommand
     {
     public:
+        // The constructor of MoveCommand can throw an exception if the robot is invalid
         MoveCommand(std::shared_ptr<IRobot> robot);
         virtual ~MoveCommand();
 

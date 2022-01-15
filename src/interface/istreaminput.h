@@ -8,6 +8,7 @@
 
 namespace ToyRobot
 {
+    // IStreamInput reads input from a std::istream
     class IStreamInput : public IInput
     {
     public:

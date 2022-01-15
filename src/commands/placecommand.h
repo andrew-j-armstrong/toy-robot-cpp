@@ -11,6 +11,7 @@ namespace ToyRobot
     class PlaceCommand : public ICommand
     {
     public:
+        // The constructor of PlaceCommand can throw an exception if the robot or surface are invalid
         PlaceCommand(std::shared_ptr<IRobot> robot, std::shared_ptr<ISurface> surface, int x, int y, Direction facing);
         virtual ~PlaceCommand();
 

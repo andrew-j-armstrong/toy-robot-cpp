@@ -17,7 +17,7 @@ TEST(TableTest, TableConstruction)
 }
 
 // Test that the table can be constructed with a valid width and height
-TEST(TableTest, InvalidTableConstruction)
+TEST(TableTest, InvalidConstruction)
 {
     EXPECT_THROW({Table table(0, 0);}, std::invalid_argument);
     EXPECT_THROW({Table table(-1, -1);}, std::invalid_argument);

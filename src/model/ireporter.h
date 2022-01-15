@@ -5,6 +5,7 @@
 
 namespace ToyRobot
 {
+    // IReporter handles location reports from robots
     class IReporter
     {
     public:

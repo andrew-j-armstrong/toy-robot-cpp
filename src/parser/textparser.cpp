@@ -17,6 +17,8 @@ TextParser::TextParser(std::shared_ptr<const ICommandFactory> commandFactory)
 : m_commandFactory(move(commandFactory))
 , m_regex(COMMAND_REGEX)
 {
+    if (!m_commandFactory)
+        throw std::invalid_argument("command factory");
 }
 
 TextParser::~TextParser()

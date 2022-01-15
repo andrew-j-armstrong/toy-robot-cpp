@@ -199,3 +199,20 @@ TEST(TextParserTest, InvalidCommand)
     EXPECT_FALSE(parser.parse_command("Report Robot"));
     EXPECT_FALSE(parser.parse_command("move 1,1,North"));
 }
+
+// Verify that an exception is thrown if an invalid robot is provided to the command
+TEST(TextParserTest, InvalidConstruction)
+{
+    EXPECT_THROW({
+        try
+        {
+            TextParser parser(nullptr);
+        }
+        catch(const std::invalid_argument &e)
+        {
+            EXPECT_EQ(std::string("command factory"), e.what());
+            throw;
+        }
+
+    }, std::invalid_argument);
+}

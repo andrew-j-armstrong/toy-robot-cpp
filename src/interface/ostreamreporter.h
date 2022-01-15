@@ -7,6 +7,7 @@
 
 namespace ToyRobot
 {
+    // OStreamReporter writes robot reports to a std::ostream (e.g. std::cout)
     class OStreamReporter : public IReporter
     {
     public:

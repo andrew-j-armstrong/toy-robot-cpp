@@ -12,6 +12,7 @@ namespace ToyRobot
     class ReportCommand : public ICommand
     {
     public:
+        // The constructor of ReportCommand can throw an exception if the robot or reporter are invalid
         ReportCommand(std::shared_ptr<IRobot> robot, std::shared_ptr<IReporter> reporter);
         virtual ~ReportCommand();
 

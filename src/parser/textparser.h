@@ -9,9 +9,11 @@
 
 namespace ToyRobot
 {
+    // TextParser uses a command factory to generate command objects once it has decoded the commands and their arguments
     class TextParser : public ITextParser
     {
     public:
+        // The constructor of TextParser can throw an exception if the command factory is invalid
         TextParser(std::shared_ptr<const ICommandFactory> commandFactory);
         virtual ~TextParser();
 
