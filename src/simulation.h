@@ -6,7 +6,8 @@
 
 namespace ToyRobot
 {
-    void run_simulation(std::shared_ptr<IInput> input, std::shared_ptr<ITextParser> parser);
+    // Runs the Toy Robot simulation, reading lines from input and parsing them using the parser to get commands, and executing all valid commands
+    void run_simulation(IInput &input, const ITextParser &parser);
 }
 
 #endif

@@ -89,8 +89,43 @@ std::string execProcess(const std::string &cmd, const std::string &input)
     return output;
 }
 
-// Tests that to_lowercase converts uppercase characters to lowercase while ignoring other characters
-TEST(ToyRobotTest, StdInTest)
+// Tests that the toy robot app executes and exits with an exit command
+TEST(ToyRobotTest, ImmediateExit)
 {
+    EXPECT_EQ("", execProcess("bin/toy_robot", "EXIT\n"));
+}
+
+// Tests that the robot correctly responds to all movement commands after being placed
+TEST(ToyRobotTest, AllMovement)
+{
+    EXPECT_EQ("1,1,NORTH\n", execProcess("bin/toy_robot", "PLACE 1,1,NORTH\nREPORT\nEXIT\n"));
     EXPECT_EQ("1,2,NORTH\n", execProcess("bin/toy_robot", "PLACE 1,1,NORTH\nMOVE\nREPORT\nEXIT\n"));
+    EXPECT_EQ("1,1,WEST\n", execProcess("bin/toy_robot", "PLACE 1,1,NORTH\nLEFT\nREPORT\nEXIT\n"));
+    EXPECT_EQ("1,1,EAST\n", execProcess("bin/toy_robot", "PLACE 1,1,NORTH\nRIGHT\nREPORT\nEXIT\n"));
+}
+
+// Tests the examples provided in the problem specifications
+TEST(ToyRobotTest, DualPlacement)
+{
+    EXPECT_EQ("1,1,NORTH\n3,3,EAST\n", execProcess("bin/toy_robot", "PLACE 1,1,NORTH\nREPORT\nPLACE 3,3,EAST\nREPORT\nEXIT\n"));
+}
+
+// Tests that commands issued prior to placement are ignored
+TEST(ToyRobotTest, IgnorePriorToPlacement)
+{
+    EXPECT_EQ("2,2,SOUTH\n", execProcess("bin/toy_robot", "MOVE\nLEFT\nRIGHT\nREPORT\nPLACE 2,2,SOUTH\nREPORT\nEXIT\n"));
+}
+
+// Tests that invalid commands are ignored
+TEST(ToyRobotTest, IgnoreInvalidCommands)
+{
+    EXPECT_EQ("2,2,SOUTH\n", execProcess("bin/toy_robot", "PLACE 2,2,SOUTH\nBLAH\nMOVE UP\nMOVE NORTH\nTURN LEFT\nRIGHT TURN\nJUMP\nPLACE SOUTH\nPLACE 4,4\nREPORT\nEXIT\n"));
+}
+
+// Tests the examples provided in the problem specifications
+TEST(ToyRobotTest, ProblemExamples)
+{
+    EXPECT_EQ("0,1,NORTH\n", execProcess("bin/toy_robot", "PLACE 0,0,NORTH\nMOVE\nREPORT\nEXIT\n"));
+    EXPECT_EQ("0,0,WEST\n", execProcess("bin/toy_robot", "PLACE 0,0,NORTH\nLEFT\nREPORT\nEXIT\n"));
+    EXPECT_EQ("3,3,NORTH\n", execProcess("bin/toy_robot", "PLACE 1,2,EAST\nMOVE\nMOVE\nLEFT\nMOVE\nREPORT\nEXIT\n"));
 }

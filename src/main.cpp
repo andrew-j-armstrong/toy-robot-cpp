@@ -56,7 +56,8 @@ int main(int argc, char*argv[])
     std::unique_ptr<ISurface> table(new Table(5, 5));
     std::unique_ptr<IRobot> robot(new Robot());
     std::unique_ptr<ICommandFactory> commandFactory(new CommandFactory(move(robot), move(reporter), move(table)));
-    std::unique_ptr<ITextParser> parser(new TextParser(move(commandFactory)));
+    
+    TextParser parser(move(commandFactory));
 
-    run_simulation(move(input), move(parser));
+    run_simulation(*input, parser);
 }
