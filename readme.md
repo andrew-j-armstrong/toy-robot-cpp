@@ -1,7 +1,7 @@
 # Toy Robot
 
 *Andrew Armstrong 2022*
-This is a Toy Robot built according to the Iress specifications.
+This is a Toy Robot built according to the below specifications.
 
 ## Specifications
 
